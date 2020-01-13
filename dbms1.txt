@@ -1,0 +1,300 @@
+MariaDB [STUDENT]> alter table student_details;
+Query OK, 0 rows affected (0.000 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [STUDENT]> alter table student_details
+    -> add <Total int(3))
+    -> where Total=dbms+os+cd
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near '<To
+tal int(3))
+where Total=dbms+os+cd' at line 2
+MariaDB [STUDENT]> alter table student_details
+    -> add <Total int(3))
+    -> where Total=dbms+os+cd;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near '<To
+tal int(3))
+where Total=dbms+os+cd' at line 2
+MariaDB [STUDENT]> alter table student_details
+    -> add <Total int(3))
+    -> where Total= dbms+os+cd
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near '<To
+tal int(3))
+where Total= dbms+os+cd' at line 2
+MariaDB [STUDENT]> update student_details
+    -> set Total=dbms+os+cd
+    -> ;
+Query OK, 1 row affected (0.020 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [STUDENT]> select * from student_details;
++---------+-------+------+------+------+------+-------+
+| regno   | name  | dept | dbms | os   | cd   | total |
++---------+-------+------+------+------+------+-------+
+| 1817129 | kumar | cse  |   50 |   70 |   81 |   201 |
++---------+-------+------+------+------+------+-------+
+1 row in set (0.000 sec)
+
+MariaDB [STUDENT]> insert into student_details (regno,name,dept,dbms,os,cd)
+    -> values(1217154,'logesh','mech',80,55,75),
+    ->  values(1517134,'mukilan','Ece',80,55,75);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'val
+ues(1517134,'mukilan','Ece',80,55,75)' at line 3
+MariaDB [STUDENT]> insert into student_details (regno,name,dept,dbms,os,cd)
+    -> (
+    -> values(1217154,'logesh','mech',80,55,75),
+    -> values(1217154,'logesh','mech',85,45,67)'
+    '> );
+    '> ;
+    '> ;
+    '> Bye
+
+cse@CSE-PC c:\xampp
+# mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 12
+Server version: 10.4.11-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use STUDENT;
+Database changed
+MariaDB [STUDENT]> insert into student_details (regno,name,dept,dbms,os,cd)
+    -> (
+    -> values(1217154,'logesh','mech',80,55,75),
+    -> values(1217154,'logesh','mech',85,45,67),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'val
+ues(1217154,'logesh','mech',85,45,67),
+)' at line 4
+MariaDB [STUDENT]> insert into student_details (regno,name,dept,dbms,os,cd)
+    -> values(1217154,'logesh','mech',85,45,67);
+Query OK, 1 row affected (0.031 sec)
+
+MariaDB [STUDENT]> insert into student_details (regno,name,dept,dbms,os,cd)
+    -> values(1217154,'logesh','mech',80,55,75);
+ERROR 1062 (23000): Duplicate entry '1217154' for key 'PRIMARY'
+MariaDB [STUDENT]> select * from student_details;
++---------+--------+------+------+------+------+-------+
+| regno   | name   | dept | dbms | os   | cd   | total |
++---------+--------+------+------+------+------+-------+
+| 1217154 | logesh | mech |   85 |   45 |   67 |  NULL |
+| 1817129 | kumar  | cse  |   50 |   70 |   81 |   201 |
++---------+--------+------+------+------+------+-------+
+2 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> insert into student_details (regno,name,dept,dbms,os,cd)
+    ->  values(1517134,'mukilan','Ece',80,55,75);
+Query OK, 1 row affected (0.021 sec)
+
+MariaDB [STUDENT]> select * from student_details;
++---------+---------+------+------+------+------+-------+
+| regno   | name    | dept | dbms | os   | cd   | total |
++---------+---------+------+------+------+------+-------+
+| 1217154 | logesh  | mech |   85 |   45 |   67 |  NULL |
+| 1517134 | mukilan | Ece  |   80 |   55 |   75 |  NULL |
+| 1817129 | kumar   | cse  |   50 |   70 |   81 |   201 |
++---------+---------+------+------+------+------+-------+
+3 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> update student_details
+    -> set Total=dbms+os+cd;
+Query OK, 2 rows affected (0.033 sec)
+Rows matched: 3  Changed: 2  Warnings: 0
+
+MariaDB [STUDENT]> select * from student_details;
++---------+---------+------+------+------+------+-------+
+| regno   | name    | dept | dbms | os   | cd   | total |
++---------+---------+------+------+------+------+-------+
+| 1217154 | logesh  | mech |   85 |   45 |   67 |   197 |
+| 1517134 | mukilan | Ece  |   80 |   55 |   75 |   210 |
+| 1817129 | kumar   | cse  |   50 |   70 |   81 |   201 |
++---------+---------+------+------+------+------+-------+
+3 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> insert into student_details
+    -> (
+    ->  values(1317134,'mahesh','cse',99,98,93),
+    ->  values(1717134,'mahe','cse',49,78,23),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'val
+ues(1717134,'mahe','cse',49,78,23),
+)' at line 4
+MariaDB [STUDENT]> insert into student_details
+    -> (
+    ->  values(1717134,'mahe','cse',49,78,23)
+    ->  values(1317134,'mahesh','cse',99,98,93)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'val
+ues(1317134,'mahesh','cse',99,98,93)
+)' at line 4
+MariaDB [STUDENT]> update student_details
+    -> set Total=dbms+os+cd;
+Query OK, 0 rows affected (0.001 sec)
+Rows matched: 3  Changed: 0  Warnings: 0
+
+MariaDB [STUDENT]> insert into student_details (regno,name,dept,dbms,os,cd)
+    ->  values(1317134,'mahesh','cse',99,98,93);
+Query OK, 1 row affected (0.032 sec)
+
+MariaDB [STUDENT]> update student_details
+    -> set Total=dbms+os+cd;
+Query OK, 1 row affected (0.031 sec)
+Rows matched: 4  Changed: 1  Warnings: 0
+
+MariaDB [STUDENT]> select * from student_details;
++---------+---------+------+------+------+------+-------+
+| regno   | name    | dept | dbms | os   | cd   | total |
++---------+---------+------+------+------+------+-------+
+| 1217154 | logesh  | mech |   85 |   45 |   67 |   197 |
+| 1317134 | mahesh  | cse  |   99 |   98 |   93 |   290 |
+| 1517134 | mukilan | Ece  |   80 |   55 |   75 |   210 |
+| 1817129 | kumar   | cse  |   50 |   70 |   81 |   201 |
++---------+---------+------+------+------+------+-------+
+4 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> insert into student_details (regno,name,dept,dbms,os,cd)
+    -> values(5,'kanya','Eee',8,54,12);
+Query OK, 1 row affected (0.026 sec)
+
+MariaDB [STUDENT]> update student_details
+    -> set regno=1;
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+MariaDB [STUDENT]> update student_details
+    -> set regno=1
+    -> where name='kumar';
+Query OK, 1 row affected (0.033 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [STUDENT]> update student_details
+    -> set regno=2
+    -> where name='mukilan';
+Query OK, 1 row affected (0.022 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [STUDENT]> update student_details
+    -> set regno=3
+    -> where name='mahesh';
+Query OK, 1 row affected (0.019 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [STUDENT]> update student_details
+    -> set regno=4
+    -> where name='logesh';
+Query OK, 1 row affected (0.023 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [STUDENT]> select * from student_details;
++-------+---------+------+------+------+------+-------+
+| regno | name    | dept | dbms | os   | cd   | total |
++-------+---------+------+------+------+------+-------+
+|     1 | kumar   | cse  |   50 |   70 |   81 |   201 |
+|     2 | mukilan | Ece  |   80 |   55 |   75 |   210 |
+|     3 | mahesh  | cse  |   99 |   98 |   93 |   290 |
+|     4 | logesh  | mech |   85 |   45 |   67 |   197 |
+|     5 | kanya   | Eee  |    8 |   54 |   12 |  NULL |
++-------+---------+------+------+------+------+-------+
+5 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> insert into student_details (regno,name,dept,dbms,os,cd)
+    ->  values(7,'kabilan','cse',94,80,70);
+Query OK, 1 row affected (0.019 sec)
+
+MariaDB [STUDENT]> insert into student_details (regno,name,dept,dbms,os,cd)
+    ->  values(6,'soniya','mech',54,90,50);
+Query OK, 1 row affected (0.019 sec)
+
+MariaDB [STUDENT]> select * from student_details;
++-------+---------+------+------+------+------+-------+
+| regno | name    | dept | dbms | os   | cd   | total |
++-------+---------+------+------+------+------+-------+
+|     1 | kumar   | cse  |   50 |   70 |   81 |   201 |
+|     2 | mukilan | Ece  |   80 |   55 |   75 |   210 |
+|     3 | mahesh  | cse  |   99 |   98 |   93 |   290 |
+|     4 | logesh  | mech |   85 |   45 |   67 |   197 |
+|     5 | kanya   | Eee  |    8 |   54 |   12 |  NULL |
+|     6 | soniya  | mech |   54 |   90 |   50 |  NULL |
+|     7 | kabilan | cse  |   94 |   80 |   70 |  NULL |
++-------+---------+------+------+------+------+-------+
+7 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> update student_details
+    ->  values(9,'peter','Ece',4,51,25);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'val
+ues(9,'peter','Ece',4,51,25)' at line 2
+MariaDB [STUDENT]> update student_details
+    ->  values(9,'peter','Ece',4,51,25);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'val
+ues(9,'peter','Ece',4,51,25)' at line 2
+MariaDB [STUDENT]> insert into student_details (regno,name,dept,dbms,os,cd)
+    ->  values(9,'peter','Ece',4,51,25);
+Query OK, 1 row affected (0.022 sec)
+
+MariaDB [STUDENT]> insert into student_details (regno,name,dept,dbms,os,cd)
+    ->  values(8,'flady','civil',23,11,05);
+Query OK, 1 row affected (0.025 sec)
+
+MariaDB [STUDENT]> insert into student_details (regno,name,dept,dbms,os,cd)
+    ->  values(10,'parker','Ibt',45,51,95);
+Query OK, 1 row affected (0.027 sec)
+
+MariaDB [STUDENT]> insert into student_details (regno,name,dept,dbms,os,cd)
+    ->  values(11,'tony','Ece',43,61,55);
+Query OK, 1 row affected (0.032 sec)
+
+MariaDB [STUDENT]> update student_details
+    -> set Total=dbms+os+cd;
+Query OK, 7 rows affected (0.035 sec)
+Rows matched: 11  Changed: 7  Warnings: 0
+
+MariaDB [STUDENT]> select * from student_details;
++-------+---------+-------+------+------+------+-------+
+| regno | name    | dept  | dbms | os   | cd   | total |
++-------+---------+-------+------+------+------+-------+
+|     1 | kumar   | cse   |   50 |   70 |   81 |   201 |
+|     2 | mukilan | Ece   |   80 |   55 |   75 |   210 |
+|     3 | mahesh  | cse   |   99 |   98 |   93 |   290 |
+|     4 | logesh  | mech  |   85 |   45 |   67 |   197 |
+|     5 | kanya   | Eee   |    8 |   54 |   12 |    74 |
+|     6 | soniya  | mech  |   54 |   90 |   50 |   194 |
+|     7 | kabilan | cse   |   94 |   80 |   70 |   244 |
+|     8 | flady   | civil |   23 |   11 |    5 |    39 |
+|     9 | peter   | Ece   |    4 |   51 |   25 |    80 |
+|    10 | parker  | Ibt   |   45 |   51 |   95 |   191 |
+|    11 | tony    | Ece   |   43 |   61 |   55 |   159 |
++-------+---------+-------+------+------+------+-------+
+11 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> describe tables;
+ERROR 1146 (42S02): Table 'student.tables' doesn't exist
+MariaDB [STUDENT]> describe table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'tab
+le' at line 1
+MariaDB [STUDENT]> describe student_details;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| regno | int(20)     | NO   | PRI | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| dept  | varchar(20) | YES  |     | NULL    |       |
+| dbms  | int(3)      | YES  |     | NULL    |       |
+| os    | int(3)      | YES  |     | NULL    |       |
+| cd    | int(3)      | YES  |     | NULL    |       |
+| total | int(3)      | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+7 rows in set (0.002 sec)
+
+MariaDB [STUDENT]>
