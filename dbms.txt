@@ -1,0 +1,318 @@
+
+MariaDB [STUDENT]> describe student_details;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| REGNO | int(8)      | NO   | PRI | NULL    |       |
+| NAME  | varchar(30) | YES  |     | NULL    |       |
+| DEPT  | varchar(3)  | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
++-------------------+
+| Tables_in_student |
++-------------------+
+| student_details   |
+| student_tables    |
++-------------------+
+
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'col
+umn Total' at line 1
+MariaDB [STUDENT]> alter table student_details drop column TOTAL;
+Query OK, 0 rows affected (0.076 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [STUDENT]> describe student_details;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| REGNO | int(8)      | NO   | PRI | NULL    |       |
+| NAME  | varchar(30) | YES  |     | NULL    |       |
+| DEPT  | varchar(3)  | YES  |     | NULL    |       |
+| DBMS  | int(3)      | YES  |     | NULL    |       |
+| OS    | int(3)      | YES  |     | NULL    |       |
+| CD    | int(3)      | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+6 rows in set (0.003 sec)
+
+MariaDB [STUDENT]> select *,(DBMS+OS+CD) as TOTAL from student_details;
++-------+-----------+------+------+------+------+-------+
+| REGNO | NAME      | DEPT | DBMS | OS   | CD   | TOTAL |
++-------+-----------+------+------+------+------+-------+
+|     1 | kabilan   | CSE  |   70 |   65 |   68 |   203 |
+|     2 | Dayanandh | CSE  |   90 |   85 |   86 |   261 |
++-------+-----------+------+------+------+------+-------+
+2 rows in set (0.001 sec)
+
+MariaDB [STUDENT]> select * from student_details;
++-------+-----------+------+------+------+------+
+| REGNO | NAME      | DEPT | DBMS | OS   | CD   |
++-------+-----------+------+------+------+------+
+|     1 | kabilan   | CSE  |   70 |   65 |   68 |
+|     2 | Dayanandh | CSE  |   90 |   85 |   86 |
++-------+-----------+------+------+------+------+
+2 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> alter table student_details add column TOTAL int(3);
+Query OK, 0 rows affected (0.116 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [STUDENT]> describe student_details;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| REGNO | int(8)      | NO   | PRI | NULL    |       |
+| NAME  | varchar(30) | YES  |     | NULL    |       |
+| DEPT  | varchar(3)  | YES  |     | NULL    |       |
+| DBMS  | int(3)      | YES  |     | NULL    |       |
+| OS    | int(3)      | YES  |     | NULL    |       |
+| CD    | int(3)      | YES  |     | NULL    |       |
+| TOTAL | int(3)      | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+7 rows in set (0.003 sec)
+
+MariaDB [STUDENT]> select * from student_details;
++-------+-----------+------+------+------+------+-------+
+| REGNO | NAME      | DEPT | DBMS | OS   | CD   | TOTAL |
++-------+-----------+------+------+------+------+-------+
+|     1 | kabilan   | CSE  |   70 |   65 |   68 |  NULL |
+|     2 | Dayanandh | CSE  |   90 |   85 |   86 |  NULL |
++-------+-----------+------+------+------+------+-------+
+2 rows in set (0.001 sec)
+
+MariaDB [STUDENT]> select *,(DBMS+OS+CD) into TOTAL from student_details;
+ERROR 1327 (42000): Undeclared variable: TOTAL
+MariaDB [STUDENT]> select *,(DBMS+OS+CD) into column TOTAL from student_details;
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'col
+umn TOTAL from student_details' at line 1
+MariaDB [STUDENT]> select *,(DBMS+OS+CD)in column TOTAL from student_details;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'col
+umn TOTAL from student_details' at line 1
+MariaDB [STUDENT]> alter table student_details drop column TOTAL;
+Query OK, 0 rows affected (0.056 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [STUDENT]> describe student_details;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| REGNO | int(8)      | NO   | PRI | NULL    |       |
+| NAME  | varchar(30) | YES  |     | NULL    |       |
+| DEPT  | varchar(3)  | YES  |     | NULL    |       |
+| DBMS  | int(3)      | YES  |     | NULL    |       |
+| OS    | int(3)      | YES  |     | NULL    |       |
+| CD    | int(3)      | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+6 rows in set (0.003 sec)
+
+MariaDB [STUDENT]> alter table student_details add column TOTAL int(3) where TOT
+AL = DBMS+OS+CD;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'whe
+re TOTAL = DBMS+OS+CD' at line 1
+MariaDB [STUDENT]> select * from student_details;
++-------+-----------+------+------+------+------+
+| REGNO | NAME      | DEPT | DBMS | OS   | CD   |
++-------+-----------+------+------+------+------+
+|     1 | kabilan   | CSE  |   70 |   65 |   68 |
+|     2 | Dayanandh | CSE  |   90 |   85 |   86 |
++-------+-----------+------+------+------+------+
+2 rows in set (0.001 sec)
+
+MariaDB [STUDENT]> alter table student_details ADD column TOTAL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near '' a
+t line 1
+MariaDB [STUDENT]> alter table student_details ADD column TOTAL INT(3);
+Query OK, 0 rows affected (0.078 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [STUDENT]> select * from student_details;
++-------+-----------+------+------+------+------+-------+
+| REGNO | NAME      | DEPT | DBMS | OS   | CD   | TOTAL |
++-------+-----------+------+------+------+------+-------+
+|     1 | kabilan   | CSE  |   70 |   65 |   68 |  NULL |
+|     2 | Dayanandh | CSE  |   90 |   85 |   86 |  NULL |
++-------+-----------+------+------+------+------+-------+
+2 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> update student_details set student_details.TOTAl  = sum(stude
+nt_details.DBMS+student_details.OS+student_details.CD)for every row;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'for
+ every row' at line 1
+MariaDB [STUDENT]> update student_details set TOTAl  = sum(DBMS+OS+CD)for every
+row;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'for
+ every row' at line 1
+MariaDB [STUDENT]> insert into student_details (REGNO,NAME,DEPT,DBMS,OS,CD)value
+s(3,'lalith','CSE',95,92,94);
+Query OK, 1 row affected (0.031 sec)
+
+MariaDB [STUDENT]> insert into student_details (REGNO,NAME,DEPT,DBMS,OS,CD)value
+s(4,'Mahesh','CSE',88,72,78);
+Query OK, 1 row affected (0.026 sec)
+
+MariaDB [STUDENT]> update student_details set TOTAl=(DBMS+OS+CD)for every row;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'for
+ every row' at line 1
+MariaDB [STUDENT]> update student_details set TOTAl=(DBMS+OS+CD);
+Query OK, 4 rows affected (0.031 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+MariaDB [STUDENT]> select * from student_details;
++-------+-----------+------+------+------+------+-------+
+| REGNO | NAME      | DEPT | DBMS | OS   | CD   | TOTAL |
++-------+-----------+------+------+------+------+-------+
+|     1 | kabilan   | CSE  |   70 |   65 |   68 |   203 |
+|     2 | Dayanandh | CSE  |   90 |   85 |   86 |   261 |
+|     3 | lalith    | CSE  |   95 |   92 |   94 |   281 |
+|     4 | Mahesh    | CSE  |   88 |   72 |   78 |   238 |
++-------+-----------+------+------+------+------+-------+
+4 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> insert into student_details (REGNO,NAME,DEPT,DBMS,OS,CD)value
+s(5,'Naveen','CSE',85,74,70);
+Query OK, 1 row affected (0.014 sec)
+
+MariaDB [STUDENT]> select * from student_details;
++-------+-----------+------+------+------+------+-------+
+| REGNO | NAME      | DEPT | DBMS | OS   | CD   | TOTAL |
++-------+-----------+------+------+------+------+-------+
+|     1 | kabilan   | CSE  |   70 |   65 |   68 |   203 |
+|     2 | Dayanandh | CSE  |   90 |   85 |   86 |   261 |
+|     3 | lalith    | CSE  |   95 |   92 |   94 |   281 |
+|     4 | Mahesh    | CSE  |   88 |   72 |   78 |   238 |
+|     5 | Naveen    | CSE  |   85 |   74 |   70 |  NULL |
++-------+-----------+------+------+------+------+-------+
+5 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> insert into student_details (REGNO,NAME,DEPT,DBMS,OS,CD)value
+s(6,'Amoeba','ECE',65,84,90);
+Query OK, 1 row affected (0.051 sec)
+
+MariaDB [STUDENT]> insert into student_details (REGNO,NAME,DEPT,DBMS,OS,CD)value
+s(6,'Kenya','EEE',95,84,91);
+ERROR 1062 (23000): Duplicate entry '6' for key 'PRIMARY'
+MariaDB [STUDENT]> select * from student_details;
++-------+-----------+------+------+------+------+-------+
+| REGNO | NAME      | DEPT | DBMS | OS   | CD   | TOTAL |
++-------+-----------+------+------+------+------+-------+
+|     1 | kabilan   | CSE  |   70 |   65 |   68 |   203 |
+|     2 | Dayanandh | CSE  |   90 |   85 |   86 |   261 |
+|     3 | lalith    | CSE  |   95 |   92 |   94 |   281 |
+|     4 | Mahesh    | CSE  |   88 |   72 |   78 |   238 |
+|     5 | Naveen    | CSE  |   85 |   74 |   70 |  NULL |
+|     6 | Amoeba    | ECE  |   65 |   84 |   90 |  NULL |
++-------+-----------+------+------+------+------+-------+
+6 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> insert into student_details (REGNO,NAME,DEPT,DBMS,OS,CD)value
+s(6,'Kenya','EEE',95,84,91);
+ERROR 1062 (23000): Duplicate entry '6' for key 'PRIMARY'
+MariaDB [STUDENT]> insert into student_details (REGNO,NAME,DEPT,DBMS,OS,CD)value
+s(7,'Kenya','EEE',95,84,91);
+Query OK, 1 row affected (0.030 sec)
+
+MariaDB [STUDENT]> select * from student_details;
++-------+-----------+------+------+------+------+-------+
+| REGNO | NAME      | DEPT | DBMS | OS   | CD   | TOTAL |
++-------+-----------+------+------+------+------+-------+
+|     1 | kabilan   | CSE  |   70 |   65 |   68 |   203 |
+|     2 | Dayanandh | CSE  |   90 |   85 |   86 |   261 |
+|     3 | lalith    | CSE  |   95 |   92 |   94 |   281 |
+|     4 | Mahesh    | CSE  |   88 |   72 |   78 |   238 |
+|     5 | Naveen    | CSE  |   85 |   74 |   70 |  NULL |
+|     6 | Amoeba    | ECE  |   65 |   84 |   90 |  NULL |
+|     7 | Kenya     | EEE  |   95 |   84 |   91 |  NULL |
++-------+-----------+------+------+------+------+-------+
+7 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> insert into student_details (REGNO,NAME,DEPT,DBMS,OS,CD)value
+s(8,'Sridhar','IT',85,74,91);
+Query OK, 1 row affected (0.042 sec)
+
+MariaDB [STUDENT]> insert into student_details (REGNO,NAME,DEPT,DBMS,OS,CD)value
+s(9,'Gugan','IT',75,74,71);
+Query OK, 1 row affected (0.024 sec)
+
+MariaDB [STUDENT]> select * from student_details;
++-------+-----------+------+------+------+------+-------+
+| REGNO | NAME      | DEPT | DBMS | OS   | CD   | TOTAL |
++-------+-----------+------+------+------+------+-------+
+|     1 | kabilan   | CSE  |   70 |   65 |   68 |   203 |
+|     2 | Dayanandh | CSE  |   90 |   85 |   86 |   261 |
+|     3 | lalith    | CSE  |   95 |   92 |   94 |   281 |
+|     4 | Mahesh    | CSE  |   88 |   72 |   78 |   238 |
+|     5 | Naveen    | CSE  |   85 |   74 |   70 |  NULL |
+|     6 | Amoeba    | ECE  |   65 |   84 |   90 |  NULL |
+|     7 | Kenya     | EEE  |   95 |   84 |   91 |  NULL |
+|     8 | Sridhar   | IT   |   85 |   74 |   91 |  NULL |
+|     9 | Gugan     | IT   |   75 |   74 |   71 |  NULL |
++-------+-----------+------+------+------+------+-------+
+9 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> insert into student_details (REGNO,NAME,DEPT,DBMS,OS,CD)value
+s(10,'Sabari','EEE',95,86,92);
+Query OK, 1 row affected (0.030 sec)
+
+MariaDB [STUDENT]> select * from student_details;
++-------+-----------+------+------+------+------+-------+
+| REGNO | NAME      | DEPT | DBMS | OS   | CD   | TOTAL |
++-------+-----------+------+------+------+------+-------+
+|     1 | kabilan   | CSE  |   70 |   65 |   68 |   203 |
+|     2 | Dayanandh | CSE  |   90 |   85 |   86 |   261 |
+|     3 | lalith    | CSE  |   95 |   92 |   94 |   281 |
+|     4 | Mahesh    | CSE  |   88 |   72 |   78 |   238 |
+|     5 | Naveen    | CSE  |   85 |   74 |   70 |  NULL |
+|     6 | Amoeba    | ECE  |   65 |   84 |   90 |  NULL |
+|     7 | Kenya     | EEE  |   95 |   84 |   91 |  NULL |
+|     8 | Sridhar   | IT   |   85 |   74 |   91 |  NULL |
+|     9 | Gugan     | IT   |   75 |   74 |   71 |  NULL |
+|    10 | Sabari    | EEE  |   95 |   86 |   92 |  NULL |
++-------+-----------+------+------+------+------+-------+
+10 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> update student_details set Total = (DBMS+OS+CD);
+Query OK, 6 rows affected (0.055 sec)
+Rows matched: 10  Changed: 6  Warnings: 0
+
+MariaDB [STUDENT]> select * from student_details;
++-------+-----------+------+------+------+------+-------+
+| REGNO | NAME      | DEPT | DBMS | OS   | CD   | TOTAL |
++-------+-----------+------+------+------+------+-------+
+|     1 | kabilan   | CSE  |   70 |   65 |   68 |   203 |
+|     2 | Dayanandh | CSE  |   90 |   85 |   86 |   261 |
+|     3 | lalith    | CSE  |   95 |   92 |   94 |   281 |
+|     4 | Mahesh    | CSE  |   88 |   72 |   78 |   238 |
+|     5 | Naveen    | CSE  |   85 |   74 |   70 |   229 |
+|     6 | Amoeba    | ECE  |   65 |   84 |   90 |   239 |
+|     7 | Kenya     | EEE  |   95 |   84 |   91 |   270 |
+|     8 | Sridhar   | IT   |   85 |   74 |   91 |   250 |
+|     9 | Gugan     | IT   |   75 |   74 |   71 |   220 |
+|    10 | Sabari    | EEE  |   95 |   86 |   92 |   273 |
++-------+-----------+------+------+------+------+-------+
+10 rows in set (0.000 sec)
+
+MariaDB [STUDENT]> update student_details set DBMS OS CD = (25,36,44) WHERE REGN
+O=6;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'OS
+CD = (25,36,44) WHERE REGNO=6' at line 1
+MariaDB [STUDENT]> update student_details set DBMS,OS,CD = (25,36,44) WHERE REGN
+O=6;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'OS,
+CD = (25,36,44) WHERE REGNO=6' at line 1
+MariaDB [STUDENT]> update student_details set DBMS,OS,CD = (25,36,44) WHERE REGN
+O==6;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'OS,
+CD = (25,36,44) WHERE REGNO==6' at line 1
+MariaDB [STUDENT]>
