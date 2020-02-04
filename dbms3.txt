@@ -1,0 +1,300 @@
+| club_involve        |
+| course              |
+| course_enroll       |
+| student             |
++---------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [studentDB]> alter table club add primary key (club_id);
+Query OK, 0 rows affected (0.350 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [studentDB]> alter table course add primary key (course_id);
+Query OK, 0 rows affected (0.230 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [studentDB]> alter table student add primary key (id);
+Query OK, 0 rows affected (0.249 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [studentDB]> desc student;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| id           | int(7)      | NO   | PRI | NULL    |       |
+| student_name | varchar(25) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+2 rows in set (0.003 sec)
+
+MariaDB [studentDB]> insert into student values(1817115,"Dinesh");
+Query OK, 1 row affected (0.035 sec)
+
+MariaDB [studentDB]> insert into student values(1817118,"Hari");
+Query OK, 1 row affected (0.055 sec)
+
+MariaDB [studentDB]> insert into student values(1817122,"Deepan");
+Query OK, 1 row affected (0.044 sec)
+
+MariaDB [studentDB]> insert into student values(1817125,"Luci");
+Query OK, 1 row affected (0.035 sec)
+
+MariaDB [studentDB]> insert into student values(1817128,"Gokul");
+Query OK, 1 row affected (0.030 sec)
+
+MariaDB [studentDB]> select * from student;
++---------+--------------+
+| id      | student_name |
++---------+--------------+
+| 1817115 | Dinesh       |
+| 1817118 | Hari         |
+| 1817122 | Deepan       |
+| 1817125 | Luci         |
+| 1817128 | Gokul        |
++---------+--------------+
+5 rows in set (0.000 sec)
+
+MariaDB [studentDB]> select student_name from student where student_name ="D__";
+
+Empty set (0.001 sec)
+
+MariaDB [studentDB]> select student_name from student where student_name like 'D
+%';
++--------------+
+| student_name |
++--------------+
+| Dinesh       |
+| Deepan       |
++--------------+
+2 rows in set (0.001 sec)
+
+MariaDB [studentDB]> select * from student where student_name like '%i';
++---------+--------------+
+| id      | student_name |
++---------+--------------+
+| 1817118 | Hari         |
+| 1817125 | Luci         |
++---------+--------------+
+2 rows in set (0.001 sec)
+
+MariaDB [studentDB]> alter table course_enroll add foreign key (student_id) refe
+rences student(id);
+Query OK, 0 rows affected (0.455 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [studentDB]> select * from course_enroll;
+Empty set (0.002 sec)
+
+MariaDB [studentDB]> desc course enroll;
+Empty set (0.002 sec)
+
+MariaDB [studentDB]> desc course_enroll;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| student_id  | int(7)      | YES  | MUL | NULL    |       |
+| course_name | varchar(25) | YES  |     | NULL    |       |
+| DOJ         | date        | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+MariaDB [studentDB]> alter table club_involve add foreign key (student_id) refer
+ences student(id);
+Query OK, 0 rows affected (0.418 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [studentDB]> desc club_involve;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| student_id | int(7)      | YES  | MUL | NULL    |       |
+| club_name  | varchar(25) | YES  |     | NULL    |       |
+| DOJ        | date        | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.004 sec)
+
+MariaDB [studentDB]> insert into course values (1,"DBMS"),(2,"OS"),(3,"CA");
+Query OK, 3 rows affected (0.026 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [studentDB]> select * from course;
++-----------+-------------+
+| course_id | course_name |
++-----------+-------------+
+|         1 | DBMS        |
+|         2 | OS          |
+|         3 | CA          |
++-----------+-------------+
+3 rows in set (0.001 sec)
+
+MariaDB [studentDB]> insert into club values (10,"LDS"),(12,"SAE"),(14,"NCC");
+Query OK, 3 rows affected (0.028 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [studentDB]> alter table club_involve add foreign key (course_id) refere
+nces course(course_id);
+ERROR 1072 (42000): Key column 'course_id' doesn't exist in table
+MariaDB [studentDB]> alter table club_involve add foreign key (course_id) refere
+nces course(course_id);
+ERROR 1072 (42000): Key column 'course_id' doesn't exist in table
+MariaDB [studentDB]> desc course;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| course_id   | int(7)      | NO   | PRI | NULL    |       |
+| course_name | varchar(25) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+2 rows in set (0.003 sec)
+
+MariaDB [studentDB]> desc club;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| club_id   | int(7)      | NO   | PRI | NULL    |       |
+| club_name | varchar(25) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.003 sec)
+
+MariaDB [studentDB]> desc club_invlove;
+ERROR 1146 (42S02): Table 'studentdb.club_invlove' doesn't exist
+MariaDB [studentDB]> show tables;
++---------------------+
+| Tables_in_studentdb |
++---------------------+
+| club                |
+| club_involve        |
+| course              |
+| course_enroll       |
+| student             |
++---------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [studentDB]> desc club_invlove;
+ERROR 1146 (42S02): Table 'studentdb.club_invlove' doesn't exist
+MariaDB [studentDB]> desc club;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| club_id   | int(7)      | NO   | PRI | NULL    |       |
+| club_name | varchar(25) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.003 sec)
+
+MariaDB [studentDB]> create table club_involve(student_id int(7),club_name varch
+ar(25),DOJ date);
+ERROR 1050 (42S01): Table 'club_involve' already exists
+MariaDB [studentDB]> select * from club_involve;
+Empty set (0.001 sec)
+
+MariaDB [studentDB]> desc club_involve;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| student_id | int(7)      | YES  | MUL | NULL    |       |
+| club_name  | varchar(25) | YES  |     | NULL    |       |
+| DOJ        | date        | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+MariaDB [studentDB]> alter table club_involve rename club_name to club_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'to
+club_id' at line 1
+MariaDB [studentDB]> alter table club_involve rename column club_name to club_id
+;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'col
+umn club_name to club_id' at line 1
+MariaDB [studentDB]> desc club_involve;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| student_id | int(7)      | YES  | MUL | NULL    |       |
+| club_name  | varchar(25) | YES  |     | NULL    |       |
+| DOJ        | date        | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+MariaDB [studentDB]> alter table club_involve RENAME COLUMN club_name TO club_id
+;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near 'COL
+UMN club_name TO club_id' at line 1
+MariaDB [studentDB]> alter table club_involve drop column club_name;
+Query OK, 0 rows affected (0.065 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [studentDB]> alter table club_involve add column club_id int(6);
+Query OK, 0 rows affected (0.056 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [studentDB]> desc cub_involve;
+ERROR 1146 (42S02): Table 'studentdb.cub_involve' doesn't exist
+MariaDB [studentDB]> desc club_involve;
++------------+--------+------+-----+---------+-------+
+| Field      | Type   | Null | Key | Default | Extra |
++------------+--------+------+-----+---------+-------+
+| student_id | int(7) | YES  | MUL | NULL    |       |
+| DOJ        | date   | YES  |     | NULL    |       |
+| club_id    | int(6) | YES  |     | NULL    |       |
++------------+--------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+MariaDB [studentDB]> alter table club_involve add foreign key (course_id) refere
+nces course(course_id);
+ERROR 1072 (42000): Key column 'course_id' doesn't exist in table
+MariaDB [studentDB]> alter table club_involve add foreign key (club_id) referenc
+es club<club_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
+corresponds to your MariaDB server version for the right syntax to use near '<cl
+ub_id)' at line 1
+MariaDB [studentDB]> alter table club_involve add foreign key (club_id) referenc
+es club(club_id);
+Query OK, 0 rows affected (0.462 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [studentDB]> desc club_involve;
++------------+--------+------+-----+---------+-------+
+| Field      | Type   | Null | Key | Default | Extra |
++------------+--------+------+-----+---------+-------+
+| student_id | int(7) | YES  | MUL | NULL    |       |
+| DOJ        | date   | YES  |     | NULL    |       |
+| club_id    | int(6) | YES  | MUL | NULL    |       |
++------------+--------+------+-----+---------+-------+
+3 rows in set (0.004 sec)
+
+MariaDB [studentDB]> select * from student;
++---------+--------------+
+| id      | student_name |
++---------+--------------+
+| 1817115 | Dinesh       |
+| 1817118 | Hari         |
+| 1817122 | Deepan       |
+| 1817125 | Luci         |
+| 1817128 | Gokul        |
++---------+--------------+
+5 rows in set (0.001 sec)
+
+MariaDB [studentDB]> select * from course;
++-----------+-------------+
+| course_id | course_name |
++-----------+-------------+
+|         1 | DBMS        |
+|         2 | OS          |
+|         3 | CA          |
++-----------+-------------+
+3 rows in set (0.000 sec)
+
+MariaDB [studentDB]> select * from club;
++---------+-----------+
+| club_id | club_name |
++---------+-----------+
+|      10 | LDS       |
+|      12 | SAE       |
+|      14 | NCC       |
++---------+-----------+
+3 rows in set (0.000 sec)
+
+MariaDB [studentDB]> select * from club_involve;
+Empty set (0.001 sec)
+
+MariaDB [studentDB]>
