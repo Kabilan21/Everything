@@ -31,7 +31,7 @@ def Create(roll):
     except OSError:
         print("Unique id has  already been taken")
     cap = cv2.VideoCapture(0)
-    face_cascade = cv2.CascadeClassifier('C:\\Users\\Kabilan\\Downloads\\haar\\haarcascade_frontalface_default.xml')
+    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
     for i in range(0, 25):
         ret, frame = cap.read()
         frame = cv2.flip(frame,1)
@@ -94,7 +94,7 @@ def Recognise():
     y = pickle.load(pickle_in)
     recognizer.read("trainer.yml")
     recognizer1.read("trainer1.yml")
-    face_cascade = cv2.CascadeClassifier('C:\\Users\\Kabilan\\Downloads\\haar\\haarcascade_frontalface_default.xml')
+    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
     cap = cv2.VideoCapture(0)
     start = time.time()
     while (cv2.waitKey(1) & 0xFF == ord('q')) == False:
